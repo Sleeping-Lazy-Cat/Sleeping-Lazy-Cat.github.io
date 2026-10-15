@@ -1,26 +1,25 @@
-// Данные слов и их точные позиции в сетке
+// Данные слов: num — видимый номер на поле, id — уникальный системный идентификатор
 const crosswordData = [
-    { id: 1, answer: "ПЕТЕРБУРГ", clue: "Город, военным генерал-губернатором которого был Милорадович с 1818 года.", dir: "H", x: 2, y: 2 },
-    { id: 2, answer: "СЕНАТСКАЯ", clue: "Площадь, ставшая местом рокового выстрела в Милорадовича.", dir: "V", x: 3, y: 1 },
-    { id: 3, answer: "КАХОВСКИЙ", clue: "Фамилия декабриста, нанесшего смертельное ранение генералу.", dir: "H", x: 3, y: 7 },
-    { id: 4, answer: "СУВОРОВ", clue: "Великий полководец, сподвижником которого был Милорадович в Итальянском и Швейцарском походах.", dir: "V", x: 6, y: 4 },
-    { id: 5, answer: "АВАНГАРД", clue: "Передовой отряд войск, которым Милорадович блестяще командовал при преследовании Наполеона.", dir: "H", x: 5, y: 10 },
-    { id: 6, answer: "ДЕКАБРЬ", clue: "Месяц 1825 года, когда произошло восстание, стоившее Милорадовичу жизни.", dir: "V", x: 12, y: 10 },
-    { id: 7, answer: "БОРОДИНО", clue: "Знаменитое сражение, где Михаил Андреевич командовал войсками правого крыла Первой армии.", dir: "H", x: 12, y: 14 },
-    { id: 8, answer: "СЕРБИЯ", clue: "Историческая родина предков рода Милорадовичей.", dir: "V", x: 9, y: 0 },
-    { id: 9, answer: "ГРАФ", clue: "Высокий дворянский титул, пожалованный Милорадовичу в 1813 году за военные заслуги.", dir: "V", x: 10, y: 2 },
-    { id: 10, answer: "ЛЕЙПЦИГ", clue: "Город, под которым состоялась знаменитая «Битва народов».", dir: "V", x: 17, y: 9 },
-    { id: 11, answer: "МЮРАТ", clue: "«Русский ...» — так называли Милорадовича за храбрость, сравнивая с французским маршалом.", dir: "V", x: 11, y: 8 }
+    { id: 1, num: 1, answer: "ШПАГА", clue: "Наградное личное оружие генерала, украшенное алмазами и надписью «За храбрость».", dir: "H", x: 8, y: 0 },
+    { id: 2, num: 2, answer: "ПРИСЯГА", clue: "Государственная процедура, задержка которой в 1825 году привела к политическому кризису, восстанию и гибели полководца.", dir: "V", x: 9, y: 0 },
+    { id: 3, num: 3, answer: "ГРАФ", clue: "Почетный дворянский титул, пожалованный военачальнику в 1813 году за боевые заслуги.", dir: "V", x: 7, y: 4 },
+    { id: 4, num: 4, answer: "БОРОДИНО", clue: "Место главного сражения Отечественной войны 1812 года, где генерал командовал правым крылом армии.", dir: "V", x: 13, y: 4 },
+    { id: 5, num: 5, answer: "АВАНГАРД", clue: "Передовой отряд войск, мастерское командование которым считается одной из главных тактических заслуг полководца.", dir: "H", x: 7, y: 6 },
+    { id: 6, num: 6, answer: "ДОУ", clue: "Английский живописец, автор портрета М.А. Милорадовича для Военной галереи Зимнего дворца.", dir: "V", x: 10, y: 7 },
+    { id: 7, num: 7, answer: "ИНФАНТЕРИЯ", clue: "Род войск (пехота), в котором М.А. Милорадович служил в чине полного генерала.", dir: "V", x: 11, y: 8 },
+    { id: 8, num: 8, answer: "МУНДИР", clue: "Предмет военной формы М.А. Милорадовича со следами рокового ранения, являющийся экспонатом коллекции Эрмитажа.", dir: "H", x: 9, y: 9 },
+    { id: 9, num: 8, answer: "МЮРАТ", clue: "Знаменитый французский маршал, с которым современники часто сравнивали Милорадовича за бесстрашие в бою («русский ...»).", dir: "V", x: 9, y: 9 },
+    { id: 10, num: 9, answer: "ЛАВРА", clue: "Монастырь (Александро-Невская ...), на территории которого находится могила полководца.", dir: "H", x: 8, y: 15 }
 ];
 
 const gridWidth = 20;
-const gridHeight = 17;
+const gridHeight = 18;
 let gridModel = Array(gridHeight).fill(null).map(() => Array(gridWidth).fill(null));
 
 let currentDir = 'H';
 let currentCell = null;
 
-// Инициализация модальных окон
+// Инициализация стартового окна
 document.getElementById('start-btn').addEventListener('click', () => {
     document.getElementById('start-modal').classList.add('hidden');
 });
@@ -33,7 +32,8 @@ crosswordData.forEach(w => {
         if (!gridModel[cy][cx]) {
             gridModel[cy][cx] = { char: w.answer[i], hWordId: null, vWordId: null, number: null };
         }
-        if (i === 0) gridModel[cy][cx].number = w.id;
+        if (i === 0) gridModel[cy][cx].number = w.num;
+        
         if (w.dir === 'H') gridModel[cy][cx].hWordId = w.id;
         if (w.dir === 'V') gridModel[cy][cx].vWordId = w.id;
         
@@ -48,8 +48,8 @@ const vClues = document.getElementById('vertical-clues');
 // Отрисовка списка вопросов
 crosswordData.forEach(w => {
     const li = document.createElement('li');
-    li.innerText = `${w.id}. ${w.clue}`;
-    li.id = `clue-${w.id}`;
+    li.innerText = `${w.num}. ${w.clue}`;
+    li.id = `clue-${w.id}`; // уникальный ID элемента
     li.addEventListener('click', () => {
         currentDir = w.dir;
         document.getElementById(`input-${w.x}-${w.y}`).focus();
@@ -66,7 +66,6 @@ for (let y = 0; y < gridHeight; y++) {
         wrapper.id = `cell-${x}-${y}`;
 
         if (cellData) {
-            // Номер клетки
             if (cellData.number) {
                 const numEl = document.createElement('div');
                 numEl.className = 'number';
@@ -74,13 +73,11 @@ for (let y = 0; y < gridHeight; y++) {
                 wrapper.appendChild(numEl);
             }
 
-            // Поле для ввода
             const input = document.createElement('input');
             input.id = `input-${x}-${y}`;
             input.maxLength = 1;
             input.autocomplete = "off";
 
-            // Логика фокуса и клика
             wrapper.addEventListener('click', () => {
                 if (currentCell && currentCell.x === x && currentCell.y === y) {
                     if (cellData.hWordId && cellData.vWordId) {
@@ -101,7 +98,6 @@ for (let y = 0; y < gridHeight; y++) {
                 e.target.select();
             });
 
-            // Ввод текста
             input.addEventListener('input', (e) => {
                 let val = e.target.value.toUpperCase();
                 if (!/^[А-ЯЁ]$/.test(val)) {
@@ -113,7 +109,6 @@ for (let y = 0; y < gridHeight; y++) {
                 moveToNextCell(1);
             });
 
-            // Навигация с клавиатуры
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Backspace') {
                     if (e.target.value === '') {
@@ -139,7 +134,6 @@ for (let y = 0; y < gridHeight; y++) {
     }
 }
 
-// Подсветка активного слова и вопроса
 function highlightWord(x, y) {
     document.querySelectorAll('.cell').forEach(c => c.classList.remove('active-word', 'active-cell'));
     document.querySelectorAll('.clue-list li').forEach(li => li.classList.remove('active-clue'));
@@ -165,14 +159,12 @@ function highlightWord(x, y) {
     document.getElementById(`cell-${x}-${y}`)?.classList.add('active-cell');
 }
 
-// Перемещение фокуса на шаг
 function moveToNextCell(step) {
     let nx = currentCell.x + (currentDir === 'H' ? step : 0);
     let ny = currentCell.y + (currentDir === 'V' ? step : 0);
     document.getElementById(`input-${nx}-${ny}`)?.focus();
 }
 
-// Перемещение фокуса по стрелкам
 function moveFocus(dx, dy) {
     let nx = currentCell.x + dx;
     let ny = currentCell.y + dy;
@@ -184,7 +176,6 @@ function moveFocus(dx, dy) {
     }
 }
 
-// Проверка выигрыша (срабатывает после каждого ввода)
 function checkWin() {
     let win = true;
     for (let y = 0; y < gridHeight; y++) {
@@ -203,6 +194,6 @@ function checkWin() {
     if (win) {
         setTimeout(() => {
             document.getElementById('win-modal').classList.remove('hidden');
-        }, 300); // Небольшая задержка перед окном
+        }, 300);
     }
 }
