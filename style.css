@@ -1,43 +1,68 @@
-/* Убираем отступы и центрируем контент на весь экран */
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: #2c3e50; /* Темный нейтральный фон */
+    background-color: #2c3e50;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* Контейнер для центровки */
 .container {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 400px;
+    height: 400px;
 }
 
-/* Настройки вашего изображения */
+/* Общие стили для обеих картинок */
 .rotating-image {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%; /* Делает изображение круглым. Если нужен оригинал - удалите эту строку */
+    position: absolute;
+    border-radius: 50%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    object-fit: cover; /* Чтобы картинка не искажалась, если она не квадратная */
-    
-    /* Анимация: 10 секунд на один оборот, линейно, бесконечно */
+    object-fit: cover;
+}
+
+/* Первая (меньшая) картинка — вращается по часовой стрелке */
+.small-image {
+    width: 200px;
+    height: 200px;
+    z-index: 2; /* Слой выше */
     animation: spin 10s linear infinite;
 }
 
-/* Остановка вращения при наведении курсора мыши (по желанию) */
+/* Вторая (большая) картинка — вращается против часовой стрелки */
+.large-image {
+    width: 320px;
+    height: 320px;
+    z-index: 1; /* Слой ниже (под первой) */
+    animation: spin-reverse 14s linear infinite; /* Чуть медленнее, чтобы смотрелось красивее */
+}
+
+/* Остановка вращения при наведении на конкретную картинку */
 .rotating-image:hover {
     animation-play-state: paused;
 }
 
-/* Описание самой анимации вращения */
+/* Анимация 1: по часовой стрелке */
 @keyframes spin {
     from {
         transform: rotate(0deg);
     }
     to {
         transform: rotate(360deg);
+    }
+}
+
+/* Анимация 2: против часовой стрелки (от 360 до 0) */
+@keyframes spin-reverse {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
     }
 }
