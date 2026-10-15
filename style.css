@@ -8,38 +8,40 @@ body, html {
     align-items: center;
 }
 
-/* Контейнер для точного совмещения центров */
+/* Контейнер задает общую точку отсчета для картинок */
 .container {
     position: relative;
-    width: 400px;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 350px;
+    height: 350px;
 }
 
 /* Общие стили для обеих картинок */
 .rotating-image {
     position: absolute;
+    /* Центрируем картинку внутри контейнера */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
     border-radius: 50%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     object-fit: cover;
 }
 
-/* 1. Большое изображение (находится под низом) */
+/* 1. Большое изображение (снизу) */
 .large-image {
     width: 320px;
     height: 320px;
     z-index: 1; /* Нижний слой */
-    animation: spin 14s linear infinite; /* Вращение по часовой стрелке */
+    animation: spin 14s linear infinite; /* Вращение по часовой */
 }
 
-/* 2. Маленькое изображение (лежит ПОВЕРХ большого) */
+/* 2. Маленькое изображение (сверху, поверх) */
 .small-image {
-    width: 180px;
-    height: 180px;
+    width: 160px;
+    height: 160px;
     z-index: 2; /* Верхний слой (поверх) */
-    animation: spin-reverse 8s linear infinite; /* Вращение против часовой стрелки */
+    animation: spin-reverse 8s linear infinite; /* Вращение против часовой */
 }
 
 /* Остановка вращения при наведении */
@@ -47,14 +49,22 @@ body, html {
     animation-play-state: paused;
 }
 
-/* Вращение по часовой */
+/* Вращение по часовой стрелке */
 @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }
 
-/* Вращение против часовой */
+/* Вращение против часовой стрелки */
 @keyframes spin-reverse {
-    from { transform: rotate(360deg); }
-    to { transform: rotate(0deg); }
+    from {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
 }
