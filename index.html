@@ -3,44 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кроссворд: М.А. Милорадович</title>
+    <title>Вращающееся изображение</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="start-modal" class="modal">
-        <div class="modal-content">
-            <h2>М.А. Милорадович</h2>
-            <p>Добро пожаловать в интерактивный кроссворд, посвященный жизни, военным заслугам и памяти выдающегося полководца.</p>
-            <button id="start-btn">Начать игру</button>
-        </div>
-    </div>
-
-    <div id="win-modal" class="modal hidden">
-        <div class="modal-content">
-            <h2>Вы всё отгадали!</h2>
-            <p>Поздравляем! Кроссворд успешно решен.</p>
-            <button onclick="location.reload()">Играть снова</button>
-        </div>
-    </div>
-
-    <header>
-        <h1>Кроссворд: М.А. Милорадович</h1>
-    </header>
-
     <div class="container">
-        <div class="crossword-wrapper" id="crossword-board"></div>
-        <div class="clues">
-            <div class="clues-col">
-                <h3>По горизонтали:</h3>
-                <ul class="clue-list" id="horizontal-clues"></ul>
-            </div>
-            <div class="clues-col">
-                <h3>По вертикали:</h3>
-                <ul class="clue-list" id="vertical-clues"></ul>
-            </div>
-        </div>
+        <!-- Указываем локальный файл вместо ссылки -->
+        <img src="smart_cat.jpg" alt="Вращающаяся картинка" class="rotating-image">
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
