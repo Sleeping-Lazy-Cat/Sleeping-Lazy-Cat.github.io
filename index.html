@@ -7,11 +7,15 @@
 </head>
 <body>
     <div class="container">
-        <!-- Большое изображение (на заднем плане) -->
-        <img src="image.jpg" alt="Большая картинка" class="rotating-image large-image">
-        
-        <!-- Меньшее изображение (поверх большого) -->
-        <img src="image.jpg" alt="Маленькая картинка" class="rotating-image small-image">
+        <!-- Большая картинка вращается в одну сторону -->
+        <div class="large-box">
+            <img src="image.jpg" alt="Большая" class="img">
+            
+            <!-- Маленькая картинка внутри большой и вращается в ДОМАШНЮЮ сторону -->
+            <div class="small-box">
+                <img src="image.jpg" alt="Маленькая" class="img">
+            </div>
+        </div>
     </div>
 </body>
 </html>
