@@ -8,63 +8,48 @@ body, html {
     align-items: center;
 }
 
-/* Контейнер задает общую точку отсчета для картинок */
 .container {
-    position: relative;
-    width: 350px;
-    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Общие стили для обеих картинок */
-.rotating-image {
-    position: absolute;
-    /* Центрируем картинку внутри контейнера */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
+/* Общий вид картинок */
+.img {
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     object-fit: cover;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* 1. Большое изображение (снизу) */
-.large-image {
+/* Большая картинка (крутится по часовой) */
+.large-box {
     width: 320px;
     height: 320px;
-    z-index: 1; /* Нижний слой */
-    animation: spin 14s linear infinite; /* Вращение по часовой */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: spin-clockwise 12s linear infinite;
 }
 
-/* 2. Маленькое изображение (сверху, поверх) */
-.small-image {
+/* Маленькая картинка (находится ПОВЕРХ большой, крутится против часовой) */
+.small-box {
+    position: absolute;
     width: 160px;
     height: 160px;
-    z-index: 2; /* Верхний слой (поверх) */
-    animation: spin-reverse 8s linear infinite; /* Вращение против часовой */
+    animation: spin-counter 6s linear infinite;
 }
 
-/* Остановка вращения при наведении */
-.rotating-image:hover {
-    animation-play-state: paused;
+/* Вращение по часовой */
+@keyframes spin-clockwise {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
-/* Вращение по часовой стрелке */
-@keyframes spin {
-    from {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-    to {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
-}
-
-/* Вращение против часовой стрелки */
-@keyframes spin-reverse {
-    from {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
-    to {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
+/* Вращение против часовой */
+@keyframes spin-counter {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
 }
