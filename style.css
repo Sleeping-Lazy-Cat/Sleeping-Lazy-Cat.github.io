@@ -8,14 +8,14 @@ body, html {
     align-items: center;
 }
 
-/* Контейнер для центровки */
+/* Контейнер для точного совмещения центров */
 .container {
     position: relative;
+    width: 400px;
+    height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 400px;
-    height: 400px;
 }
 
 /* Общие стили для обеих картинок */
@@ -26,43 +26,35 @@ body, html {
     object-fit: cover;
 }
 
-/* Первая (меньшая) картинка — вращается по часовой стрелке */
-.small-image {
-    width: 200px;
-    height: 200px;
-    z-index: 2; /* Слой выше */
-    animation: spin 10s linear infinite;
-}
-
-/* Вторая (большая) картинка — вращается против часовой стрелки */
+/* 1. Большое изображение (находится под низом) */
 .large-image {
     width: 320px;
     height: 320px;
-    z-index: 1; /* Слой ниже (под первой) */
-    animation: spin-reverse 14s linear infinite; /* Чуть медленнее, чтобы смотрелось красивее */
+    z-index: 1; /* Нижний слой */
+    animation: spin 14s linear infinite; /* Вращение по часовой стрелке */
 }
 
-/* Остановка вращения при наведении на конкретную картинку */
+/* 2. Маленькое изображение (лежит ПОВЕРХ большого) */
+.small-image {
+    width: 180px;
+    height: 180px;
+    z-index: 2; /* Верхний слой (поверх) */
+    animation: spin-reverse 8s linear infinite; /* Вращение против часовой стрелки */
+}
+
+/* Остановка вращения при наведении */
 .rotating-image:hover {
     animation-play-state: paused;
 }
 
-/* Анимация 1: по часовой стрелке */
+/* Вращение по часовой */
 @keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
-/* Анимация 2: против часовой стрелки (от 360 до 0) */
+/* Вращение против часовой */
 @keyframes spin-reverse {
-    from {
-        transform: rotate(360deg);
-    }
-    to {
-        transform: rotate(0deg);
-    }
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
 }
