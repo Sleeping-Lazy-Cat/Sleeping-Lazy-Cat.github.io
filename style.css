@@ -14,7 +14,6 @@ body, html {
     align-items: center;
 }
 
-/* Общий вид картинок */
 .img {
     width: 100%;
     height: 100%;
@@ -23,7 +22,6 @@ body, html {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Большая картинка (крутится по часовой) */
 .large-box {
     width: 320px;
     height: 320px;
@@ -34,7 +32,6 @@ body, html {
     animation: spin-clockwise 12s linear infinite;
 }
 
-/* Маленькая картинка (находится ПОВЕРХ большой, крутится против часовой) */
 .small-box {
     position: absolute;
     width: 160px;
@@ -42,13 +39,11 @@ body, html {
     animation: spin-counter 6s linear infinite;
 }
 
-/* Вращение по часовой */
 @keyframes spin-clockwise {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
 
-/* Вращение против часовой */
 @keyframes spin-counter {
     from { transform: rotate(0deg); }
     to { transform: rotate(-360deg); }
